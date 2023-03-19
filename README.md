@@ -1,4 +1,4 @@
-### GIN demo
+### Fiber demo
 This is just a demo project to learn https://gofiber.io (GO)
 with the GORM orm
 
