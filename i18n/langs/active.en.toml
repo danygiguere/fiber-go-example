@@ -1,0 +1,2 @@
+helloWorld = "Hello World static message"
+helloName = "Hello {{.Name}}"
