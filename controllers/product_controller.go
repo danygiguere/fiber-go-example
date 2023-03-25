@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go-fiber-example/m/v2/configs"
 	"go-fiber-example/m/v2/models"
+	"go-fiber-example/m/v2/requests"
 )
 
 type ProductController struct {
@@ -26,6 +27,7 @@ func (controller *ProductController) Show(ctx *fiber.Ctx) error {
 }
 
 func (controller *ProductController) Create(ctx *fiber.Ctx) error {
+	requests.ValidateCreateProductRequest(ctx)
 	product := new(models.Product)
 	if err := ctx.BodyParser(product); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err.Error())
