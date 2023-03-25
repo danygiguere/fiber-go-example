@@ -23,7 +23,8 @@ func splitRule(rule string) (string, int) {
 	}
 }
 
-func Check(fieldName string, fieldValue interface{}, rules []string, locale string, ve ValidationErrors) ValidationErrors {
+func Check(fieldName string, fieldValue interface{}, rules []string, locale string) ValidationErrors {
+	ve := make(ValidationErrors)
 	for _, rule := range rules {
 		ruleKey, ruleValue := splitRule(rule)
 
