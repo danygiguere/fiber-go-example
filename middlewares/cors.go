@@ -7,7 +7,7 @@ import (
 
 func LoadCorsMiddleware(app *fiber.App) {
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "https://gofiber.net",
+		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 }

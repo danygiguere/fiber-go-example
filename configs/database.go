@@ -2,6 +2,7 @@ package configs
 
 import (
 	"fmt"
+	"go-fiber-example/m/v2/models"
 	"log"
 	"os"
 	"strconv"
@@ -27,5 +28,6 @@ func ConnectToDB() {
 		log.Fatal("Failed to connect to database. \n", err)
 		os.Exit(2)
 	}
+	db.AutoMigrate(&models.Product{})
 	DBConn = db
 }

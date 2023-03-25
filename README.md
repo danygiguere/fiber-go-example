@@ -2,8 +2,8 @@
 This is just a demo project to learn https://gofiber.io (GO)
 with the GORM orm
 
-To start the application, just run `go run main.go`
-or: `CompileDaemon` wich will watch and reload on file change
+To start the application, just run `go run app.go`
+
 
 Packages used:
 go get github.com/joho/godotenv
