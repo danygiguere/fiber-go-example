@@ -27,7 +27,13 @@ func (controller *ProductController) Show(ctx *fiber.Ctx) error {
 }
 
 func (controller *ProductController) Create(ctx *fiber.Ctx) error {
-	requests.ValidateCreateProductRequest(ctx)
+	request := new(requests.CreateProductRequest)
+	if err := ctx.BodyParser(request); err != nil {
+		return err
+	}
+	if err := requests.ValidateCreateProductRequest(*request, ctx.Get("Accept-Language")); err != nil {
+		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(err)
+	}
 	product := new(models.Product)
 	if err := ctx.BodyParser(product); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err.Error())

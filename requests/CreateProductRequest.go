@@ -2,7 +2,6 @@ package requests
 
 import (
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	u "go-fiber-example/m/v2/utils"
 )
 
@@ -11,17 +10,13 @@ type CreateProductRequest struct {
 	Price string
 }
 
-func ValidateCreateProductRequest(ctx *fiber.Ctx) CreateProductRequest {
-	request := new(CreateProductRequest)
-	ctx.BodyParser(request)
+func ValidateCreateProductRequest(request CreateProductRequest, locale string) u.ValidationErrors {
 
-	locale := ctx.Get("Accept-Language")
-	
 	ve := u.Check("Code", request.Code, []string{u.NotNull}, locale)
 	ve = u.Check("Price", request.Price, []string{fmt.Sprintf("%s:%d", u.MinLength, 6)}, locale)
 
 	if len(ve) > 0 {
-		panic(ctx.Status(fiber.StatusUnprocessableEntity).JSON(ve))
+		return ve
 	}
-	return *request
+	return nil
 }
