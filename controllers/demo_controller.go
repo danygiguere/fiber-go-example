@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"go-fiber-example/m/v2/i18n/translations"
+	"go-fiber-example/m/v2/resources/translations"
 )
 
 type DemoController struct{}

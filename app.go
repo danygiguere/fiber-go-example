@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"go-fiber-example/m/v2/configs"
-	"go-fiber-example/m/v2/i18n"
 	"go-fiber-example/m/v2/middlewares"
 	"go-fiber-example/m/v2/routes"
+	"go-fiber-example/m/v2/utils"
 	"log"
 	"os"
 )
@@ -14,7 +14,7 @@ import (
 func main() {
 	configs.LoadEnvVariables()
 	configs.ConnectToDB()
-	i18n.Load()
+	utils.Load()
 	app := fiber.New()
 	middlewares.LoadRecoverMiddleware(app)
 	middlewares.LoadLoggerMiddleware(app)

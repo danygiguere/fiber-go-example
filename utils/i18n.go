@@ -1,4 +1,4 @@
-package i18n
+package utils
 
 import (
 	"github.com/BurntSushi/toml"
@@ -15,8 +15,8 @@ func Load() {
 	// Register toml unmarshal function.
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
 	// Load translations for other languages.
-	bundle.MustLoadMessageFile("./i18n/langs/active.en.toml")
-	bundle.MustLoadMessageFile("./i18n/langs/active.fr.toml")
+	bundle.MustLoadMessageFile("./resources/langs/active.en.toml")
+	bundle.MustLoadMessageFile("./resources/langs/active.fr.toml")
 
 	I18nBundle = *bundle
 }
