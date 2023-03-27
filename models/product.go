@@ -6,6 +6,7 @@ import (
 
 type Product struct {
 	gorm.Model
-	Code  string
-	Price string
+	Code   string
+	Price  string
+	UserID uint
 }

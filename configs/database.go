@@ -28,6 +28,9 @@ func ConnectToDB() {
 		log.Fatal("Failed to connect to database. \n", err)
 		os.Exit(2)
 	}
-	db.AutoMigrate(&models.Product{})
+	if err := db.AutoMigrate(&models.User{}, &models.Product{}); err != nil {
+		log.Fatal("Failed to automigrate the database. \n", err)
+		return
+	}
 	DBConn = db
 }

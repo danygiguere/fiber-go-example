@@ -8,6 +8,7 @@ import (
 func RegisterApiRoutes(route fiber.Router) {
 
 	demoController := controllers.NewDemoController()
+	userController := controllers.NewUserController()
 	productController := controllers.NewProductController()
 
 	api := route.Group("/api")
@@ -15,6 +16,8 @@ func RegisterApiRoutes(route fiber.Router) {
 	api.Get("/demo", demoController.Index)
 	api.Get("/demo/i18n/hello", demoController.I18nHelloWorld)
 	api.Get("/demo/i18n/name/:name", demoController.I18nHelloName)
+
+	api.Get("/users", userController.Index)
 
 	api.Get("/products", productController.Index)
 	api.Get("/products/:id", productController.Show)
