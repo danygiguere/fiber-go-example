@@ -17,10 +17,15 @@ func GetProductById(id string) (models.Product, error) {
 	return product, err
 }
 
-func CreateProduct() (models.Product, error) {
-	product := new(models.Product)
+func CreateProduct(product models.Product) (models.Product, error) {
 	err := configs.DBConn.Create(&product).Error
-	return *product, err
+	return product, err
+}
+
+func UpdateProduct(product models.Product, id string) error {
+	updatedProduct := models.Product{Code: product.Code, Price: product.Price}
+	err := configs.DBConn.Model(&product).Where("id = ?", id).Updates(updatedProduct).Error
+	return err
 }
 
 func DeleteProduct(id string) error {
