@@ -64,7 +64,7 @@ func (controller *ProductController) Update(ctx *fiber.Ctx) error {
 }
 
 func (controller *ProductController) Delete(ctx *fiber.Ctx) error {
-	err := services.DeleteProduct(ctx.Params("id"))
+	err := services.DeleteProductById(ctx.Params("id"))
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err.Error())
 	}

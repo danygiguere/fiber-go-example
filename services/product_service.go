@@ -28,7 +28,7 @@ func UpdateProduct(product models.Product, id string) error {
 	return err
 }
 
-func DeleteProduct(id string) error {
+func DeleteProductById(id string) error {
 	err := configs.DBConn.Delete(&models.Product{}, id).Error
 	return err
 }
