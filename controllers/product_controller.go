@@ -5,6 +5,7 @@ import (
 	"go-fiber-example/m/v2/configs"
 	"go-fiber-example/m/v2/models"
 	"go-fiber-example/m/v2/requests"
+	"go-fiber-example/m/v2/services"
 )
 
 type ProductController struct {
@@ -15,16 +16,35 @@ func NewProductController() ProductController {
 }
 
 func (controller *ProductController) Index(ctx *fiber.Ctx) error {
-	var products []models.Product
-	configs.DBConn.Find(&products)
+	products, err := services.GetAllProducts()
+	if err != nil {
+		return err
+	}
 	return ctx.Status(fiber.StatusOK).JSON(products)
 }
 
 func (controller *ProductController) Show(ctx *fiber.Ctx) error {
-	var product models.Product
-	configs.DBConn.First(&product, ctx.Params("id"))
+	product, err := services.GetProductById(ctx.Params("id"))
+	if err != nil {
+		return err
+	}
 	return ctx.Status(fiber.StatusOK).JSON(product)
 }
+
+//func (controller *ProductController) Create(ctx *fiber.Ctx) error {
+//	request := new(requests.CreateProductRequest)
+//	if err := ctx.BodyParser(request); err != nil {
+//		return err
+//	}
+//	if err := requests.ValidateCreateProductRequest(*request, ctx.Get("Accept-Language")); err != nil {
+//		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(err)
+//	}
+//	product, err := services.CreateProduct()
+//	if err != nil {
+//		return err
+//	}
+//	return ctx.Status(fiber.StatusCreated).JSON(product)
+//}
 
 func (controller *ProductController) Create(ctx *fiber.Ctx) error {
 	request := new(requests.CreateProductRequest)
@@ -53,6 +73,9 @@ func (controller *ProductController) Update(ctx *fiber.Ctx) error {
 }
 
 func (controller *ProductController) Delete(ctx *fiber.Ctx) error {
-	configs.DBConn.Delete(&models.Product{}, ctx.Params("id"))
-	return ctx.Status(fiber.StatusNoContent).JSON("deleted")
+	err := services.DeleteProduct(ctx.Params("id"))
+	if err != nil {
+		return err
+	}
+	return ctx.SendStatus(fiber.StatusNoContent)
 }
